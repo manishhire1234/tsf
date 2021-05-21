@@ -1,0 +1,50 @@
+ ur1="http://bit.ly/w-data"
+    data_s<-read.csv(ur1)
+    head(data_s)
+
+    dim(data_s)
+
+    summary(data_s)
+
+    x<-data_s$Hours
+y<-data_s$Scores
+plot(x,y,xlab="Hours studied",ylab="percentage Scored",main="Hours Vs Percentage")
+
+cor(x,y)
+
+The correlation coefficient is 0.9761907, which indicates the strong positive correlation. i.e. more the no. of hours studied more is the percentage scores.
+Preparing the Data
+
+dt<-sort(sample(nrow(data_s)*0.8))
+data_train=data_s[dt,]
+data_test=data_s[-dt]
+
+
+dt<-sort(sample(nrow(data_s)*0.8))
+data_train=data_s[dt,]
+data_test=data_s[-dt]
+
+Training the algorithm
+model<-lm(Scores~Hours, data=data_train)
+s=summary(model)
+s
+
+coefficients(model)
+
+    x<-data_s$Hours
+y<-data_s$Scores
+plot(x,y,xlab="Hours Studied",ylab="Scores",main = "Hours VS  Percentage",col="green")
+abline(model,col="red")
+
+comparing Actual and predicted Scores
+x_test=data_test[1]
+y_test=data_test[2]
+Y_pred=predict(model,x_test)
+data_p=data.frame("Actual"=y_test, "Predicted_Scores"=Y_pred)
+data_p
+
+Predicting scores of a Student who studied for 9.25 hours/day.
+
+1
+
+93.76316
